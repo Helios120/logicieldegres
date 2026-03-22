@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HeliosAstro — Contact</title>
+  <meta name="description" content="Contact HeliosAstro." />
+  <meta name="theme-color" content="#0b0b0f" />
+  <link rel="canonical" href="https://heliosastro.com/contact.html" />
+
+  <style>
+    :root{
+      --bg:#07090f;--bg2:#0e1426;--panel:#111728;--panel2:#0b1020;
+      --line:rgba(255,255,255,.10);--text:#f5f7fb;--muted:#aab3c5;
+      --gold:#ffb24b;--gold2:#ffdd8f;--shadow:0 20px 50px rgba(0,0,0,.35);
+      --radius:24px;--max:1180px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);
+      background:
+        radial-gradient(circle at top, rgba(63,85,160,.28) 0%, rgba(7,9,15,0) 30%),
+        linear-gradient(180deg,var(--bg2),var(--bg));
+    }
+    a{text-decoration:none;color:inherit}
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 18px}
+    .topbar{
+      position:sticky;top:0;z-index:50;background:rgba(7,9,15,.92);
+      backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{
+      display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;padding:14px 0;
+    }
+    .brand{display:flex;align-items:center;gap:14px;min-width:0}
+    .site-logo{
+      width:72px;height:72px;object-fit:contain;border-radius:18px;background:#000;
+      border:1px solid rgba(255,255,255,.14);padding:6px;
+      box-shadow:0 0 18px rgba(255,210,122,.16),0 10px 26px rgba(0,0,0,.45);
+    }
+    .brand-title{font-size:28px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;line-height:1}
+    .brand-sub{margin-top:7px;font-size:12px;color:#b7bfd1;line-height:1.4}
+    .menu{display:flex;gap:16px;flex-wrap:wrap}
+    .menu a{color:var(--gold2);font-weight:800;font-size:14px}
+    .page{padding:34px 0}
+    .contact{
+      padding:24px;max-width:760px;margin:auto;
+      background:linear-gradient(180deg,var(--panel),var(--panel2));
+      border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);
+    }
+    .contact p{line-height:1.8;color:var(--muted)}
+    .list a{display:block;margin:10px 0;color:var(--gold2);font-weight:800}
+    footer{
+      margin-top:30px;padding:26px 0 36px;color:#8e97aa;text-align:center;
+      border-top:1px solid rgba(255,255,255,.06);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="wrap">
+      <div class="nav">
+        <a href="index.html" class="brand">
+          <img src="images/logo-heliosastro.png" alt="Logo HeliosAstro" class="site-logo" width="72" height="72">
+          <div>
+            <div class="brand-title">HeliosAstro</div>
+            <div class="brand-sub">Astrologie héliocentrique • Géométrie sacrée • Analyse avancée</div>
+          </div>
+        </a>
+
+        <nav class="menu">
+          <a href="index.html">Accueil</a>
+          <a href="logiciel.html">Logiciel</a>
+          <a href="offres.html">Offres</a>
+          <a href="livre.html">Livre</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="page">
+    <div class="wrap">
+      <div class="contact">
+        <h1>Contact</h1>
+        <p>Pour commandes, partenariats, demandes d’aperçu gratuit, questions sur le logiciel, le livre ou les prestations astrologiques.</p>
+        <div class="list">
+          <a href="mailto:heliosphotonic@gmail.com">heliosphotonic@gmail.com</a>
+          <a href="https://heliosquantum.blogspot.com" target="_blank" rel="noopener noreferrer">Blog HeliosQuantum</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © HeliosAstro — Astrologie héliogéométrique
+  </footer>
+
+</body>
+</html>
