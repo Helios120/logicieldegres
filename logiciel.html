@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logiciel astrologique | HeliosAstro</title>
+  <meta name="description" content="Logiciel astrologique HeliosAstro avec roue zodiacale, positions planétaires visuelles et export PNG." />
+  <meta name="theme-color" content="#0b0b0f" />
+  <link rel="canonical" href="https://heliosastro.com/logiciel.html" />
+
+  <style>
+    :root{
+      --bg:#05070f;--bg2:#131b34;--panel:#111728;--panel2:#0b1020;
+      --line:rgba(255,255,255,.10);--text:#f5f7fb;--muted:#aab3c5;
+      --gold:#ffb24b;--gold2:#ffdd8f;--shadow:0 20px 50px rgba(0,0,0,.35);
+      --radius:24px;--max:1280px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);
+      background:
+        radial-gradient(circle at top, rgba(63,85,160,.28) 0%, rgba(7,9,15,0) 30%),
+        linear-gradient(180deg,var(--bg2),var(--bg));
+    }
+    a{text-decoration:none;color:inherit}
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 18px}
+    .topbar{
+      position:sticky;top:0;z-index:50;background:rgba(7,9,15,.92);
+      backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{
+      display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;padding:14px 0;
+    }
+    .brand{display:flex;align-items:center;gap:14px;min-width:0}
+    .site-logo{
+      width:72px;height:72px;object-fit:contain;border-radius:18px;background:#000;
+      border:1px solid rgba(255,255,255,.14);padding:6px;
+      box-shadow:0 0 18px rgba(255,210,122,.16),0 10px 26px rgba(0,0,0,.45);
+    }
+    .brand-title{font-size:28px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;line-height:1}
+    .brand-sub{margin-top:7px;font-size:12px;color:#b7bfd1;line-height:1.4}
+    .menu{display:flex;gap:16px;flex-wrap:wrap}
+    .menu a{color:var(--gold2);font-weight:800;font-size:14px}
+    .page{padding:28px 0 34px}
+    .intro{
+      margin-bottom:20px;padding:24px;background:linear-gradient(180deg,var(--panel),var(--panel2));
+      border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);
+    }
+    .intro h1{margin:0 0 10px;font-size:42px}
+    .intro p{margin:0;color:var(--muted);line-height:1.75;max-width:980px}
+    .layout{display:grid;grid-template-columns:360px 1fr;gap:18px}
+    .panel{
+      background:linear-gradient(180deg,var(--panel),var(--panel2));
+      border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;
+    }
+    .panel h2{margin:0 0 10px;font-size:24px}
+    .sub{margin:0 0 16px;font-size:13px;color:var(--muted);line-height:1.6}
+    label{display:block;margin:12px 0 6px;color:var(--muted);font-size:13px}
+    input{
+      width:100%;padding:11px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);
+      background:#050812;color:#fff;font-size:14px;
+    }
+    .row{display:flex;gap:8px}
+    .row > div{flex:1}
+    .buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    button{
+      border:none;border-radius:999px;padding:12px 18px;font-size:14px;font-weight:900;
+      cursor:pointer;
+    }
+    .btn-primary{background:var(--gold);color:#111}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,221,143,.45);color:var(--gold2)}
+    .status{margin-top:14px;color:var(--muted);font-size:13px;line-height:1.6}
+    .chartbox{
+      display:flex;align-items:center;justify-content:center;min-height:860px;
+      border-radius:18px;overflow:hidden;background:#000;border:1px solid rgba(255,255,255,.08);
+    }
+    canvas{display:block;width:100%;max-width:940px;aspect-ratio:1/1;background:#000}
+    .tablewrap{margin-top:16px;overflow:auto;border:1px solid rgba(255,255,255,.08);border-radius:14px}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:10px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left;font-size:14px}
+    th{color:#fff}
+    td{color:#d8deea}
+    @media (max-width:1080px){
+      .layout{grid-template-columns:1fr}
+      .chartbox{min-height:700px}
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="wrap">
+      <div class="nav">
+        <a href="index.html" class="brand">
+          <img src="images/logo-heliosastro.png" alt="Logo HeliosAstro" class="site-logo" width="72" height="72">
+          <div>
+            <div class="brand-title">HeliosAstro</div>
+            <div class="brand-sub">Astrologie héliocentrique • Géométrie sacrée • Analyse avancée</div>
+          </div>
+        </a>
+
+        <nav class="menu">
+          <a href="index.html">Accueil</a>
+          <a href="offres.html">Offres</a>
+          <a href="livre.html">Livre</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="page">
+    <div class="wrap">
+      <div class="intro">
+        <h1>Logiciel astrologique HeliosAstro</h1>
+        <p>
+          Version stable et lisible : roue zodiacale, placement planétaire, lecture visuelle et export PNG.
+        </p>
+      </div>
+
+      <div class="layout">
+        <aside class="panel">
+          <h2>Paramètres</h2>
+          <p class="sub">Démo avancée avec calculs symboliques embarqués.</p>
+
+          <label>Nom</label>
+          <input id="name" type="text" placeholder="Ex. Thierry">
+
+          <div class="row">
+            <div>
+              <label>Date</label>
+              <input id="date" type="date">
+            </div>
+            <div>
+              <label>Heure</label>
+              <input id="time" type="time" value="22:00">
+            </div>
+          </div>
+
+          <label>Lieu</label>
+          <input id="place" type="text" value="Paris, France">
+
+          <div class="buttons">
+            <button class="btn-primary" id="runBtn">Générer la carte</button>
+            <button class="btn-ghost" id="saveBtn">Exporter PNG</button>
+          </div>
+
+          <div class="status" id="statusText">En attente…</div>
+        </aside>
+
+        <section class="panel">
+          <div class="chartbox">
+            <canvas id="astroCanvas" width="960" height="960"></canvas>
+          </div>
+          <div class="tablewrap">
+            <table id="planetTable"></table>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const canvas = document.getElementById("astroCanvas");
+    const ctx = canvas.getContext("2d");
+    const zodiacImg = new Image();
+    zodiacImg.src = "zodiaque-modele.png";
+
+    const SIGNS = ["Bélier","Taureau","Gémeaux","Cancer","Lion","Vierge","Balance","Scorpion","Sagittaire","Capricorne","Verseau","Poissons"];
+
+    const BODIES = [
+      { name:"Soleil", glyph:"☉", color:"#facc15", lon:72.4 },
+      { name:"Lune", glyph:"☽", color:"#e5e7eb", lon:210.3 },
+      { name:"Mercure", glyph:"☿", color:"#fb923c", lon:88.2 },
+      { name:"Vénus", glyph:"♀", color:"#f472b6", lon:120.9 },
+      { name:"Mars", glyph:"♂", color:"#ef4444", lon:150.2 },
+      { name:"Jupiter", glyph:"♃", color:"#a78bfa", lon:95.6 },
+      { name:"Saturne", glyph:"♄", color:"#60a5fa", lon:342.4 },
+      { name:"Uranus", glyph:"♅", color:"#22c55e", lon:55.8 },
+      { name:"Neptune", glyph:"♆", color:"#38bdf8", lon:358.1 },
+      { name:"Pluton", glyph:"♇", color:"#ec4899", lon:302.0 }
+    ];
+
+    function rev360(v){ v = v % 360; return v < 0 ? v + 360 : v; }
+
+    function degToSign(lon){
+      lon = rev360(lon);
+      const signIndex = Math.floor(lon / 30);
+      const within = lon - signIndex * 30;
+      const deg = Math.floor(within);
+      const min = Math.round((within - deg) * 60);
+      return deg + "°" + String(min).padStart(2,"0") + " " + SIGNS[signIndex];
+    }
+
+    function polar(cx, cy, r, deg){
+      const a = (deg - 90) * Math.PI / 180;
+      return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
+    }
+
+    function drawChart(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle = "#000";
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+
+      if(zodiacImg.complete){
+        ctx.drawImage(zodiacImg, 120, 120, 720, 720);
+      }
+
+      const cx = 480;
+      const cy = 480;
+
+      BODIES.forEach((p, i) => {
+        const angle = p.lon;
+        const planet = polar(cx, cy, 392 + (i % 3) * 18, angle);
+        const label = polar(cx, cy, 440 + (i % 3) * 18, angle);
+
+        ctx.beginPath();
+        ctx.strokeStyle = p.color;
+        ctx.lineWidth = 2;
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(planet.x, planet.y);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.fillStyle = "#08101f";
+        ctx.strokeStyle = p.color;
+        ctx.lineWidth = 3;
+        ctx.arc(planet.x, planet.y, 18, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = p.color;
+        ctx.font = "25px Arial";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(p.glyph, planet.x, planet.y + 1);
+
+        ctx.fillStyle = "#fff";
+        ctx.font = "12px Arial";
+        ctx.fillText(p.name, label.x, label.y - 8);
+
+        ctx.fillStyle = "#cfd6e6";
+        ctx.font = "11px Arial";
+        ctx.fillText(degToSign(p.lon), label.x, label.y + 10);
+      });
+
+      const name = document.getElementById("name").value.trim() || "Consultant";
+      const place = document.getElementById("place").value.trim();
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value;
+
+      ctx.fillStyle = "#fff";
+      ctx.font = "bold 18px Arial";
+      ctx.textAlign = "center";
+      ctx.fillText(name, 480, 892);
+
+      ctx.fillStyle = "#cfd6e6";
+      ctx.font = "13px Arial";
+      ctx.fillText([place, date ? date.split("-").reverse().join("/") : "", time].filter(Boolean).join(" • "), 480, 918);
+    }
+
+    function renderTable(){
+      const table = document.getElementById("planetTable");
+      let html = "<tr><th>Corps</th><th>Glyphe</th><th>Position</th><th>Longitude</th></tr>";
+      BODIES.forEach(p => {
+        html += `<tr><td><b>${p.name}</b></td><td style="font-size:20px;color:${p.color};">${p.glyph}</td><td>${degToSign(p.lon)}</td><td>${p.lon.toFixed(2)}°</td></tr>`;
+      });
+      table.innerHTML = html;
+    }
+
+    function exportPNG(){
+      const link = document.createElement("a");
+      link.download = "heliosastro-carte.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    }
+
+    document.getElementById("runBtn").addEventListener("click", () => {
+      drawChart();
+      renderTable();
+      document.getElementById("statusText").textContent = "Carte générée.";
+    });
+
+    document.getElementById("saveBtn").addEventListener("click", exportPNG);
+
+    zodiacImg.onload = () => {
+      document.getElementById("date").value = "2025-06-03";
+      document.getElementById("time").value = "22:00";
+      document.getElementById("place").value = "Paris, France";
+      drawChart();
+      renderTable();
+    };
+  </script>
+
+</body>
+</html>
