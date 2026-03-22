@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HeliosAstro — Astrologie héliogéométrique</title>
+  <meta name="description" content="Astrologie héliogéométrique, géométrie sacrée, lectures héliocentriques, rosace de naissance, spirales de croissance et logiciel astrologique HeliosAstro." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="HeliosAstro — Astrologie héliogéométrique" />
+  <meta property="og:description" content="Quand la géométrie sacrée éclaire votre ciel." />
+  <meta name="theme-color" content="#0b0b0f" />
+  <link rel="canonical" href="https://heliosastro.com/" />
+
+  <style>
+    :root{
+      --bg:#07090f;
+      --bg2:#121a33;
+      --panel:#12192d;
+      --panel2:#0c1120;
+      --line:rgba(255,255,255,.08);
+      --text:#f5f7fb;
+      --muted:#aab3c5;
+      --gold:#ffb24b;
+      --gold2:#ffdd8f;
+      --shadow:0 20px 50px rgba(0,0,0,.35);
+      --radius:24px;
+      --max:1180px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top, rgba(63,85,160,.30) 0%, rgba(7,9,15,0) 32%),
+        linear-gradient(180deg,var(--bg2),var(--bg));
+    }
+
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%}
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 18px}
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(7,9,15,.92);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+
+    .nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:18px;
+      flex-wrap:wrap;
+      padding:14px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      min-width:0;
+    }
+
+    .site-logo{
+      width:72px;
+      height:72px;
+      object-fit:contain;
+      border-radius:18px;
+      background:#000;
+      border:1px solid rgba(255,255,255,.14);
+      padding:6px;
+      box-shadow:0 0 18px rgba(255,210,122,.16),0 10px 26px rgba(0,0,0,.45);
+      flex:0 0 auto;
+    }
+
+    .brand-title{
+      font-size:28px;
+      font-weight:900;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      line-height:1;
+      color:#fff;
+    }
+
+    .brand-sub{
+      margin-top:7px;
+      font-size:12px;
+      color:#b7bfd1;
+      line-height:1.4;
+    }
+
+    .menu{
+      display:flex;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    .menu a{
+      color:var(--gold2);
+      font-weight:800;
+      font-size:14px;
+    }
+
+    .hero{
+      padding:36px 0 24px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:22px;
+      align-items:center;
+    }
+
+    .card{
+      background:linear-gradient(180deg,var(--panel),var(--panel2));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    .hero-card{
+      padding:30px;
+    }
+
+    .badge{
+      display:inline-block;
+      margin-bottom:14px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,221,143,.25);
+      color:var(--gold2);
+      font-size:12px;
+      font-weight:800;
+    }
+
+    h1,h2,h3{margin:0}
+
+    .hero h1{
+      font-size:50px;
+      line-height:1.05;
+      margin-bottom:14px;
+    }
+
+    .hero p{
+      font-size:18px;
+      line-height:1.75;
+      margin:0 0 18px;
+      color:var(--muted);
+    }
+
+    .actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:13px 20px;
+      border-radius:999px;
+      font-weight:900;
+      font-size:14px;
+      transition:transform .15s ease,opacity .15s ease;
+    }
+
+    .btn:hover{
+      transform:translateY(-1px);
+      opacity:.96;
+    }
+
+    .btn-primary{
+      background:var(--gold);
+      color:#111;
+    }
+
+    .btn-secondary{
+      border:1px solid rgba(255,221,143,.45);
+      color:var(--gold2);
+    }
+
+    .visual{
+      padding:14px;
+    }
+
+    .visual img{
+      width:100%;
+      height:auto;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .section{
+      padding:28px 0;
+    }
+
+    .text-card{
+      padding:26px;
+    }
+
+    .text-card p{
+      color:var(--muted);
+      line-height:1.8;
+      margin:12px 0 0;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
+    }
+
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
+    .feature-card{
+      padding:24px;
+    }
+
+    .feature-card h3{
+      font-size:24px;
+      margin-bottom:10px;
+    }
+
+    .feature-card p{
+      margin:0;
+      line-height:1.75;
+      color:var(--muted);
+    }
+
+    .checklist{
+      margin:14px 0 0;
+      padding-left:18px;
+      color:var(--text);
+    }
+
+    .checklist li{
+      margin-bottom:8px;
+      line-height:1.65;
+    }
+
+    .showcase-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
+    }
+
+    .show-card{
+      overflow:hidden;
+    }
+
+    .show-card .media{
+      height:460px;
+      padding:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(255,255,255,.02);
+    }
+
+    .show-card img{
+      max-width:100%;
+      max-height:100%;
+      width:auto;
+      height:auto;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .show-card .body{
+      padding:14px 16px 18px;
+      border-top:1px solid rgba(255,255,255,.06);
+    }
+
+    .show-card .title{
+      font-size:18px;
+      font-weight:800;
+      margin-bottom:8px;
+    }
+
+    .show-card .meta{
+      font-size:14px;
+      color:var(--muted);
+      line-height:1.6;
+    }
+
+    .cta-box{
+      padding:28px;
+      text-align:center;
+    }
+
+    .cta-box p{
+      color:var(--muted);
+      line-height:1.8;
+      max-width:780px;
+      margin:14px auto 0;
+    }
+
+    footer{
+      margin-top:30px;
+      padding:26px 0 36px;
+      color:#8e97aa;
+      text-align:center;
+      border-top:1px solid rgba(255,255,255,.06);
+    }
+
+    @media (max-width:980px){
+      .hero-grid,.grid-2,.grid-3,.showcase-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero h1{
+        font-size:38px;
+      }
+    }
+
+    @media (max-width:720px){
+      .site-logo{
+        width:58px;
+        height:58px;
+        border-radius:14px;
+      }
+
+      .brand-title{
+        font-size:21px;
+        letter-spacing:.1em;
+      }
+
+      .brand-sub{
+        font-size:11px;
+      }
+
+      .hero h1{
+        font-size:32px;
+      }
+
+      .hero p{
+        font-size:16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="wrap">
+      <div class="nav">
+        <a href="index.html" class="brand">
+          <img src="images/logo-heliosastro.png" alt="Logo HeliosAstro" class="site-logo" width="72" height="72">
+          <div>
+            <div class="brand-title">HeliosAstro</div>
+            <div class="brand-sub">Astrologie héliocentrique • Géométrie sacrée • Analyse avancée</div>
+          </div>
+        </a>
+
+        <nav class="menu">
+          <a href="index.html">Accueil</a>
+          <a href="logiciel.html">Logiciel</a>
+          <a href="offres.html">Offres</a>
+          <a href="livre.html">Livre</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="card hero-card">
+          <div class="badge">Astrologie Héliogéométrique</div>
+          <h1>Quand la géométrie sacrée éclaire votre ciel</h1>
+          <p>
+            Entrez dans une astrologie de nouvelle génération, reliée à la géométrie sacrée.
+            Ici, spirales, rosaces et vision héliocentrique s’unissent pour offrir des lectures claires,
+            concrètes et ciblées.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="offres.html">Réserver une lecture</a>
+            <a class="btn btn-secondary" href="logiciel.html">Découvrir le logiciel</a>
+          </div>
+        </div>
+
+        <div class="card visual">
+          <img src="images/mandala-sacree.png" alt="Mandala sacré HeliosAstro" loading="eager" width="1200" height="1200">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="grid-2">
+        <article class="card text-card">
+          <h2>Ce qui nous rend uniques</h2>
+          <ul class="checklist">
+            <li><strong>Héliocentrisme :</strong> le Soleil au centre pour lire les dynamiques réelles des orbites et des phases.</li>
+            <li><strong>Spirales de croissance :</strong> elles révèlent les moments d’essor, de pivot et d’intégration.</li>
+            <li><strong>Rosaces harmoniques :</strong> elles cartographient forces, tensions créatives et zones d’alignement.</li>
+            <li><strong>Précision temporelle :</strong> une lecture orientée timing pour identifier fenêtres propices et périodes charnières.</li>
+          </ul>
+        </article>
+
+        <article class="card text-card">
+          <h2>Ce que vous recevez</h2>
+          <ul class="checklist">
+            <li><strong>Rosace de Naissance :</strong> une carte héliogéométrique personnalisée.</li>
+            <li><strong>Analyse stratégique :</strong> thèmes majeurs, relations, carrière, rythme intérieur et axes d’équilibre.</li>
+            <li><strong>Calendrier des fenêtres favorables :</strong> dates clés pour lancer, consolider, communiquer et clarifier.</li>
+            <li><strong>Conseils pratiques :</strong> décisions, habitudes et rituels simples pour ancrer l’alignement dans la matière.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="grid-3">
+        <article class="card feature-card">
+          <h3>Pour qui ?</h3>
+          <p>Créateurs, dirigeants, porteurs de projets, esprits rationnels curieux d’une astrologie plus structurée et toute personne en phase de transition.</p>
+        </article>
+
+        <article class="card feature-card">
+          <h3>Comment ça marche ?</h3>
+          <p>Vos données, la construction de la rosace et des spirales de cycle, une lecture des harmoniques et une restitution détaillée avec plan clair.</p>
+        </article>
+
+        <article class="card feature-card">
+          <h3>Vision HeliosAstro</h3>
+          <p>Clarifiez vos cycles. Alignez vos actions. Faites rayonner votre trajectoire avec une grille visuelle, lisible et orientée décision.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 style="margin-bottom:16px;">Exemples visuels</h2>
+
+      <div class="showcase-grid">
+        <article class="card show-card">
+          <div class="media">
+            <img src="images/rihanna-exemple.png" alt="Exemple de thème astral Rihanna" loading="lazy" width="900" height="900">
+          </div>
+          <div class="body">
+            <div class="title">Exemple — thème astral Rihanna</div>
+            <div class="meta">Exemple visuel de présentation astrologique HeliosAstro.</div>
+          </div>
+        </article>
+
+        <article class="card show-card">
+          <div class="media">
+            <img src="theme-paris-03062025.png" alt="Thème astral personnalisé Paris 03/06/2025 à 22h" loading="lazy" width="900" height="900">
+          </div>
+          <div class="body">
+            <div class="title">Exemple — thème astral personnalisé</div>
+            <div class="meta">Paris — 03/06/2025 à 22:00. Planètes placées à l’extérieur avec lecture visuelle sur la roue zodiacale.</div>
+          </div>
+        </article>
+
+        <article class="card show-card">
+          <div class="media">
+            <img src="zodiaque-modele.png" alt="Modèle zodiacal HeliosAstro" loading="lazy" width="900" height="900">
+          </div>
+          <div class="body">
+            <div class="title">Modèle zodiacal</div>
+            <div class="meta">Roue zodiacale utilisée comme base graphique du logiciel.</div>
+          </div>
+        </article>
+
+        <article class="card show-card">
+          <div class="media">
+            <img src="images/mandala-sacree.png" alt="Univers visuel HeliosAstro" loading="lazy" width="1200" height="1200">
+          </div>
+          <div class="body">
+            <div class="title">Univers HeliosAstro</div>
+            <div class="meta">Visuel de marque pour partage social, aperçu Google et identité visuelle.</div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="card cta-box">
+        <h2>Prêt·e à voir votre ciel avec de nouveaux yeux ?</h2>
+        <p>
+          Obtenez un aperçu gratuit de votre rosace ou réservez votre lecture héliogéométrique dès aujourd’hui.
+          Clarifiez vos cycles. Alignez vos actions. Faites rayonner votre trajectoire.
+        </p>
+        <div class="actions" style="justify-content:center;">
+          <a class="btn btn-primary" href="offres.html">Voir les prestations</a>
+          <a class="btn btn-secondary" href="contact.html">Demander un aperçu</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © HeliosAstro — Astrologie héliogéométrique
+  </footer>
+
+</body>
+</html>
